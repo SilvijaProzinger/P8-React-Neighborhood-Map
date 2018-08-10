@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 /*import logo from './logo.svg';*/
 import './App.css';
-
+//import axios to fetch data from Foursquare
+import axios from 'axios';
 
 class App extends Component {
+	state = {
+		venues: [],
+		markers: []
+	}
 
+    // Async method source: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
 	componentDidMount() {
         // Call the initMap() asynchronously with componentDidMount method
         window.initMap = this.initMap;
         // Asynchronously load Google Maps
+        // Note: the API key is expired and map has watermark, please use your own API key to view properly
         loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAUSrFja-h2hJqeIbh1whssllk3t8U6VAs&callback=initMap')
+
+    // Get Foursquare venues using axios
+	axios.get('https://api.foursquare.com/v2/venues/search?ll=45.5616873,18.6770196&intent=browse&radius=1000&query=cafe&client_id=PGIW2RVNRZZJO4GIBP1ALRK4T3ZK20H4WFHEY5X2OZB4C1MN&client_secret=LLUU3RJV0MHUXU2RSWDZ3RAPO00HFZRKVGU2AGGXUQB41DUY&v=20180728')
+  	.then(response => {
+  		console.log(response);
+  	})
+  	.catch(error => {
+    	console.log('Error fetching and parsing data', error);
+  	});
+
     };
 
     // Initialize map   
@@ -19,7 +36,7 @@ class App extends Component {
         	center: {lat: 45.5616873, lng: 18.6770196 }
         });
     }
-    
+
   render() {
     return (
       <div className="App">

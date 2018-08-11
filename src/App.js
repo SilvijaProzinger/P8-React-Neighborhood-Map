@@ -40,21 +40,21 @@ class App extends Component {
         	zoom: 14,
         	center: {lat: 45.5616873, lng: 18.6770196 }
         }); 
-    this.createMarkers(map);
+
+    createMarkers();
     } 
 
-    createMarkers = (props, map) => {
+    createMarkers = (place, map) => {
     	// Create a marker per location, and put into markers array.
         let marker = new window.google.maps.Marker({
             position: {lat: place.venue.location.lat, lng: place.venue.location.lng},
             map: map,
-            title: places.venue.name,
+            title: place.name,
             animation: window.google.maps.Animation.DROP
           });
 
         // Push the marker to our array of markers.
         this.props.markers.push(marker);
-
     }
 
   render() {

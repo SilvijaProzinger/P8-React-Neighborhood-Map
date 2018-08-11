@@ -39,24 +39,23 @@ class App extends Component {
         let map = new window.google.maps.Map(document.getElementById("map"), {
         	zoom: 14,
         	center: {lat: 45.5616873, lng: 18.6770196 }
-        });
+        }); 
     this.createMarkers(map);
-    };
+    } 
 
-    createMarkers = map => {
-        // The following group uses the place array to create an array of markers on initialize.
-        for (var i = 0; i < places.length; i++) {
-          // Create a marker per place, and put into markers array.
-          var marker = new window.google.maps.Marker({
+    createMarkers = (props, map) => {
+    	// Create a marker per location, and put into markers array.
+        let marker = new window.google.maps.Marker({
             position: {lat: place.venue.location.lat, lng: place.venue.location.lng},
-            name: place.venue.name,
-            animation: window.google.maps.Animation.DROP,
-            id: i
+            map: map,
+            title: places.venue.name,
+            animation: window.google.maps.Animation.DROP
           });
-          // Push the marker to our array of markers.
-          this.state.markers.push(marker);
-        }
-    }   
+
+        // Push the marker to our array of markers.
+        this.props.markers.push(marker);
+
+    }
 
   render() {
     return (

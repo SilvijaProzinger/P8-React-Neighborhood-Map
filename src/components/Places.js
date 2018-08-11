@@ -36,7 +36,7 @@ class Places extends Component {
 			onChange={this.updateSearch.bind(this)}/>
 		  </div>
 		 <div className="places-list">
-		 	<h3>places:</h3>
+		 	<h3>Places:</h3>
 		 	<ul>
 		 	{list}
 		 	</ul>

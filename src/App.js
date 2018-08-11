@@ -4,9 +4,12 @@ import './App.css';
 //import axios to fetch data from Foursquare
 import axios from 'axios';
 
+//Import components
+import Places from './components/Places';
+
 class App extends Component {
 	state = {
-		venues: [],
+		places: [],
 		markers: []
 	}
 
@@ -18,10 +21,12 @@ class App extends Component {
         // Note: the API key is expired and map has watermark, please use your own API key to view properly
         loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAUSrFja-h2hJqeIbh1whssllk3t8U6VAs&callback=initMap')
 
-    // Get Foursquare venues using axios
+    // Get Foursquare places using axios
 	axios.get('https://api.foursquare.com/v2/venues/search?ll=45.5616873,18.6770196&intent=browse&radius=1000&query=cafe&client_id=PGIW2RVNRZZJO4GIBP1ALRK4T3ZK20H4WFHEY5X2OZB4C1MN&client_secret=LLUU3RJV0MHUXU2RSWDZ3RAPO00HFZRKVGU2AGGXUQB41DUY&v=20180728')
   	.then(response => {
-  		console.log(response);
+  		this.setState({
+  			places: response.data.response.venues
+  		})
   	})
   	.catch(error => {
     	console.log('Error fetching and parsing data', error);
@@ -30,12 +35,28 @@ class App extends Component {
     };
 
     // Initialize map   
-    initMap() {
+    initMap () {
         let map = new window.google.maps.Map(document.getElementById("map"), {
         	zoom: 14,
         	center: {lat: 45.5616873, lng: 18.6770196 }
         });
-    }
+    this.createMarkers(map);
+    };
+
+    createMarkers = map => {
+        // The following group uses the place array to create an array of markers on initialize.
+        for (var i = 0; i < places.length; i++) {
+          // Create a marker per place, and put into markers array.
+          var marker = new window.google.maps.Marker({
+            position: {lat: place.venue.location.lat, lng: place.venue.location.lng},
+            name: place.venue.name,
+            animation: window.google.maps.Animation.DROP,
+            id: i
+          });
+          // Push the marker to our array of markers.
+          this.state.markers.push(marker);
+        }
+    }   
 
   render() {
     return (
@@ -43,7 +64,12 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Coffee Shops near Ante Starčević Square, Osijek, Croatia</h1>
         </header>
+        <main>
           <div id="map" style={{ height: `600px`, width: '100%' }}></div>
+          <div id="places-sidebar">
+          	<Places places={this.state.places} markers={this.state.markers}/>
+          </div>
+        </main>
       </div>
     );
   }

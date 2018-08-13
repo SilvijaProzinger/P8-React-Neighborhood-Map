@@ -42,7 +42,7 @@ class App extends Component {
         	center: {lat: 45.5616873, lng: 18.6770196 }
         });
 
-    this.createMarkers();
+    this.createMarkers(map);
     }
 
     // The following function uses the places array to create an array of markers on initialize.
@@ -60,7 +60,8 @@ class App extends Component {
             name: name,
             animation: window.google.maps.Animation.DROP,
             icon: this.state.defaultIcon,
-            venueID: venueID
+            venueID: venueID,
+            map: this.map
           });
 
           // Set state to save the marker to our array of markers.

@@ -14,7 +14,6 @@ class App extends Component {
 		placeMarkers: []
 	}
 
-
     // Async method source: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
 	componentDidMount() {
         // Call the initMap() asynchronously with componentDidMount method
@@ -37,17 +36,17 @@ class App extends Component {
     };
 
     // Initialize map   
-    initMap () {
+    initMap = () => {
         let map = new window.google.maps.Map(document.getElementById("map"), {
         	zoom: 14,
         	center: {lat: 45.5616873, lng: 18.6770196 }
         });
 
-        this.createMarkers();
+    this.createMarkers();
     }
 
     // The following function uses the places array to create an array of markers on initialize.
-    createMarkers = () => {
+    createMarkers = (map) => {
 
         for (let i = 0; i < this.state.places.length; i++) {
           // Get the position from the location array
@@ -58,12 +57,12 @@ class App extends Component {
           // Create a marker per location, and put into markers array.
           let marker = new window.google.maps.Marker({
             position: position,
-            title: this.place.name,
-            map: this.map,
+            name: name,
             animation: window.google.maps.Animation.DROP,
             icon: this.state.defaultIcon,
             venueID: venueID
           });
+
           // Set state to save the marker to our array of markers.
           this.setState((state) => ({
           	markers: [...state.markers, marker]

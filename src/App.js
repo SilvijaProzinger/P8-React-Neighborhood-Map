@@ -10,8 +10,10 @@ import Places from './components/Places';
 class App extends Component {
 	state = {
 		places: [],
-		markers: []
+		markers: [],
+		placeMarkers: []
 	}
+
 
     // Async method source: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
 	componentDidMount() {
@@ -39,23 +41,49 @@ class App extends Component {
         let map = new window.google.maps.Map(document.getElementById("map"), {
         	zoom: 14,
         	center: {lat: 45.5616873, lng: 18.6770196 }
-        }); 
+        });
 
-    createMarkers();
-    } 
-
-    createMarkers = (place, map) => {
-    	// Create a marker per location, and put into markers array.
-        let marker = new window.google.maps.Marker({
-            position: {lat: place.venue.location.lat, lng: place.venue.location.lng},
-            map: map,
-            title: place.name,
-            animation: window.google.maps.Animation.DROP
-          });
-
-        // Push the marker to our array of markers.
-        this.props.markers.push(marker);
+        this.createMarkers();
     }
+
+    // The following function uses the places array to create an array of markers on initialize.
+    createMarkers = () => {
+
+        for (let i = 0; i < this.state.places.length; i++) {
+          // Get the position from the location array
+          let position = this.state.places[i].location;
+          let name = this.state.places[i].name;
+          let venueID = this.state.places[i].venueID;
+
+          // Create a marker per location, and put into markers array.
+          let marker = new window.google.maps.Marker({
+            position: position,
+            title: this.place.name,
+            map: this.map,
+            animation: window.google.maps.Animation.DROP,
+            icon: this.state.defaultIcon,
+            venueID: venueID
+          });
+          // Set state to save the marker to our array of markers.
+          this.setState((state) => ({
+          	markers: [...state.markers, marker]
+      	  }))
+        }
+    }
+
+    // Create default marker icon
+    makeMarkerIcon(markerColor) {
+        const markerImage = new window.google.maps.MarkerImage(
+          'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+          '|40|_|%E2%80%A2',
+          new window.google.maps.Size(21, 34),
+          new window.google.maps.Point(0, 0),
+          new window.google.maps.Point(10, 34),
+          new window.google.maps.Size(21,34)
+          );
+          return markerImage;
+      };
+
 
   render() {
     return (

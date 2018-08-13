@@ -61,7 +61,7 @@ class App extends Component {
             animation: window.google.maps.Animation.DROP,
             icon: this.state.defaultIcon,
             venueID: venueID,
-            map: this.map
+            map: map
           });
 
           // Set state to save the marker to our array of markers.

@@ -54,13 +54,13 @@ class App extends Component {
 	  for (let i = 0; i < places.length; i++) {
 	    // Get the position from the location array
 	    const position = places[i].location;
-	    const name = places[i].name;
+	    const title = places[i].name;
 	    const venueID = places[i].venueID;
 
 	    // Create a marker per location, and put into markers array.
 	    const marker = new window.google.maps.Marker({
 	      position: position,
-	      name: name,
+	      title: title,
 	      animation: window.google.maps.Animation.DROP,
 	      icon: this.state.defaultIcon,
 	      venueID: venueID,

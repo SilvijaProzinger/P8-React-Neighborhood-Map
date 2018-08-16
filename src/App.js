@@ -11,7 +11,6 @@ class App extends Component {
 	state = {
 		places: [],
 		markers: [],
-		placeMarkers: []
 	}
 
     // Async method source: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
@@ -35,54 +34,59 @@ class App extends Component {
 
     };
 
-    // Initialize map   
+    // Initialize map
     initMap = () => {
-        let map = new window.google.maps.Map(document.getElementById("map"), {
-        	zoom: 14,
-        	center: {lat: 45.5616873, lng: 18.6770196 }
-        });
+	    const map = new window.google.maps.Map(document.getElementById("map"), {
+	    zoom: 14,
+	    center: {
+	      lat: 45.5616873,
+	      lng: 18.6770196
+	    }
+	    });
 
     this.createMarkers(map);
     }
 
-    // The following function uses the places array to create an array of markers on initialize.
-    createMarkers = (map) => {
+	// The following function uses the places array to create an array of markers on initialize.
+	createMarkers = (map) => {
+	  const places = this.state.places
+	  const markers = []
+	  for (let i = 0; i < places.length; i++) {
+	    // Get the position from the location array
+	    const position = places[i].location;
+	    const name = places[i].name;
+	    const venueID = places[i].venueID;
 
-        for (let i = 0; i < this.state.places.length; i++) {
-          // Get the position from the location array
-          let position = this.state.places[i].location;
-          let name = this.state.places[i].name;
-          let venueID = this.state.places[i].venueID;
+	    // Create a marker per location, and put into markers array.
+	    const marker = new window.google.maps.Marker({
+	      position: position,
+	      name: name,
+	      animation: window.google.maps.Animation.DROP,
+	      icon: this.state.defaultIcon,
+	      venueID: venueID,
+	      map: map
+	    });
 
-          // Create a marker per location, and put into markers array.
-          let marker = new window.google.maps.Marker({
-            position: position,
-            name: name,
-            animation: window.google.maps.Animation.DROP,
-            icon: this.state.defaultIcon,
-            venueID: venueID,
-            map: map
-          });
+	    markers.push(marker)
+	    console.log('marker created')
+	  }
+	  this.setState({markers})
+	  console.log('function called')
+	}
 
-          // Set state to save the marker to our array of markers.
-          this.setState((state) => ({
-          	markers: [...state.markers, marker]
-      	  }))
-        }
-    }
-
-    // Create default marker icon
-    makeMarkerIcon(markerColor) {
-        const markerImage = new window.google.maps.Icon(
-          'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
-          '|40|_|%E2%80%A2',
-          new window.google.maps.Size(21, 34),
-          new window.google.maps.Point(0, 0),
-          new window.google.maps.Point(10, 34),
-          new window.google.maps.Size(21,34)
-          );
-          return markerImage;
-      };
+	// Create default marker icon
+	makeMarkerIcon(markerColor) {
+	  const markerImage = new window.google.maps.Icon(
+	    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15%7C0%7C' + markerColor +
+	    '|40|_|%E2%80%A2',
+	    new window.google.maps.Size(21, 34),
+	    new window.google.maps.Point(0, 0),
+	    new window.google.maps.Point(10, 34),
+	    new window.google.maps.Size(21, 34)
+	  );
+	  console.log('marker image created')
+	  return markerImage;
+	};
 
 
   render() {
@@ -94,7 +98,9 @@ class App extends Component {
         <main>
           <div id="map" style={{ height: `600px`, width: '100%' }}></div>
           <div id="places-sidebar">
-          	<Places places={this.state.places} markers={this.state.markers}/>
+          	<Places 
+          	places={this.state.places} 
+          	markers={this.state.markers}/>
           </div>
         </main>
       </div>

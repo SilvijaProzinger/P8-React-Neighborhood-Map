@@ -103,6 +103,25 @@ class App extends Component {
 
 
   render() {
+  	const { places, search, markers} = this.state
+    if (search) {
+      // get the index of elements that does not start with the query
+      // and use that index with markers array to setMap to null
+      places.forEach((place,i) => {
+        if(place.name.toLowerCase().includes(search.toLowerCase())) {
+          markers[i].setVisible(true)
+        } else {
+          markers[i].setVisible(false)
+        }
+      })
+    } else {
+      places.forEach((place,i) => {
+        if (markers.length && markers[i]) {
+          markers[i].setVisible(true)
+        }
+      })
+    }
+
     return (
       <div className="App">
         <header className="App-header">
@@ -113,7 +132,8 @@ class App extends Component {
           <div id="places-sidebar">
           	<Places 
           	places={this.state.places} 
-          	markers={this.state.markers}/>
+          	markers={this.state.markers}
+          	/>
           </div>
         </main>
       </div>

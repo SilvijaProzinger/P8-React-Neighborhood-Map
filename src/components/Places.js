@@ -14,7 +14,6 @@ class Places extends Component {
 
 	//filteredList variable filters the list of places after user types into search box
 	render () {
-		const markers = this.props.markers;
 		let filteredList = this.props.places.filter(
 			(place) => {
 				//toLowerCase helps appropriate letter be recognized regardless of upper case or lower case
@@ -28,7 +27,6 @@ class Places extends Component {
 				}
 			
 		);
-
 
 		//variable list maps through list of places and their id to generate their names
 		const list = filteredList.map((place, i) => {

@@ -24,6 +24,9 @@
   font-size: large;
 }
 
+a {
+  cursor: pointer;
+}
 /*
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

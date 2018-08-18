@@ -11,7 +11,7 @@ class App extends Component {
 	state = {
 		places: [],
 		markers: [],
-		map: null
+		map: null,
 	}
 
 	// Async method source: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
@@ -29,8 +29,14 @@ class App extends Component {
 	      places: response.data.response.venues
 	    }, () => this.createMarkers())
 	    }).catch(error => {
+	    alert ('Error fetching data from Foursquare API')
 	    console.log('Error fetching and parsing data', error);
 	  });
+
+	  // Handles errors for Google Maps
+      window.gm_authFailure = () => {
+      alert('Error loading Google Maps. Check the API key.')
+      }    
 	};
 
 	// Initialize map
@@ -46,8 +52,8 @@ class App extends Component {
 	    });
 
 	    this.setState({
-	        map
-	      }, () =>
+	    	map
+	    }, () =>
 	      // Calling createMarkers after setState has completed
 	      this.createMarkers()
 	    )
@@ -58,12 +64,14 @@ class App extends Component {
 	createMarkers = () => {
 	  // Use map from the current state
 	  const map = this.state.map
+	  // Create info window
+	  const infoWindow = new window.google.maps.InfoWindow()
 	  // Continue if the marker array is empty, if the places array is filled, and map is set
 	  if (this.state.markers.length === 0 && this.state.places.length > 0 && this.state.map) {
 	    const places = this.state.places
 	    const markers = []
 	    for (let i = 0; i < places.length; i++) {
-	      // Get the position from the location array
+	      // Get the position and other attributes from the places array fetched from Foursquare
 	      const position = places[i].location;
 	      const title = places[i].name;
 	      const venueID = places[i].venueID;
@@ -72,21 +80,42 @@ class App extends Component {
 	      const marker = new window.google.maps.Marker({
 	        position: position,
 	        title: title,
-	        animation: window.google.maps.Animation.DROP,
 	        icon: this.state.defaultIcon,
 	        venueID: venueID,
 	        map: map
 	      });
 
 	      markers.push(marker)
-	      console.log('marker created')
-	    }
+
 	    this.setState({
 	      markers
 	    })
-	    console.log('function called')
+
+	    // Create variable which will populate info window with content fetched from Foursquare
+	    let infoContent = `<h3>${this.state.places[i].name}</h3>
+	                       <p>Address: ${places[i].location.formattedAddress[0]} ${places[i].location.formattedAddress[1]} ${places[i].location.formattedAddress[2]}</p>`
+
+	    // Display the info window after clicking on the marker
+        marker.addListener('click', function() {
+        	//Set info window content
+        	infoWindow.setContent(infoContent)
+                // Open the info window
+                infoWindow.open(map, marker)
+
+                // Animate the marker, source: https://developers.google.com/maps/documentation/javascript/examples/marker-animations
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(window.google.maps.Animation.BOUNCE)
+                    setTimeout(function() {
+                        marker.setAnimation(null)
+                    }, 300)
+                }
+            })
 	  }
 	}
+
+    }
 
 	// Create default marker icon
 	makeMarkerIcon(markerColor) {
@@ -101,27 +130,7 @@ class App extends Component {
 	  return markerImage;
 	};
 
-
   render() {
-  	const { places, search, markers} = this.state
-    if (search) {
-      // get the index of elements that does not start with the query
-      // and use that index with markers array to setMap to null
-      places.forEach((place,i) => {
-        if(place.name.toLowerCase().includes(search.toLowerCase())) {
-          markers[i].setVisible(true)
-        } else {
-          markers[i].setVisible(false)
-        }
-      })
-    } else {
-      places.forEach((place,i) => {
-        if (markers.length && markers[i]) {
-          markers[i].setVisible(true)
-        }
-      })
-    }
-
     return (
       <div className="App">
         <header className="App-header">

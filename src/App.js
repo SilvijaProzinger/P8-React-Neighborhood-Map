@@ -114,7 +114,6 @@ class App extends Component {
             })
 	  }
 	}
-
     }
 
 	// Create default marker icon
@@ -139,9 +138,9 @@ class App extends Component {
         <main>
           <div id="map" style={{ height: `600px`, width: '100%' }}></div>
           <div id="places-sidebar">
-          	<Places 
-          	places={this.state.places} 
-          	markers={this.state.markers}
+          	<Places
+          	places = {this.state.places} 
+          	markers = {this.state.markers}
           	/>
           </div>
         </main>

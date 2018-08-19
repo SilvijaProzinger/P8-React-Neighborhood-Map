@@ -12,11 +12,20 @@ class Places extends Component {
 
 	}
 
-	//filteredList variable filters the list of places after user types into search box
+	// Trigger marker's info window when clicking on a location
+	onLocationClick = (placeName) => {
+        this.props.markers.map((marker) => {
+            if(marker.title === placeName) {
+                window.google.maps.event.trigger(marker, 'click');
+            }
+        })
+    }
+
+	// filteredList variable filters the list of places after user types into search box
 	render () {
 		let filteredList = this.props.places.filter(
 			(place) => {
-				//toLowerCase helps appropriate letter be recognized regardless of upper case or lower case
+				// toLowerCase helps appropriate letter be recognized regardless of upper case or lower case
 				return place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
 				/*for (let i = 0; i < this.props.places.length; i++){
 					if(place.name.toLowerCase().includes(this.state.search.toLowerCase())) {
@@ -28,10 +37,12 @@ class Places extends Component {
 			
 		);
 
-		//variable list maps through list of places and their id to generate their names
+		// variable list maps through list of places and their id to generate their names
 		const list = filteredList.map((place, i) => {
 			return (
-				<li key = {i}>{place.name}</li>
+				<li className="location-list" key = {i} onClick={() => this.onLocationClick(place.name)}>
+				{place.name}
+				</li>
 			) 
 		})
 

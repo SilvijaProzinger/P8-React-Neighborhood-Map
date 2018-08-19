@@ -80,7 +80,7 @@ class App extends Component {
 	      const marker = new window.google.maps.Marker({
 	        position: position,
 	        title: title,
-	        icon: this.state.defaultIcon,
+	        animation: window.google.maps.Animation.DROP,
 	        venueID: venueID,
 	        map: map
 	      });
@@ -109,7 +109,7 @@ class App extends Component {
                     marker.setAnimation(window.google.maps.Animation.BOUNCE)
                     setTimeout(function() {
                         marker.setAnimation(null)
-                    }, 300)
+                    }, 1000)
                 }
             })
 	  }

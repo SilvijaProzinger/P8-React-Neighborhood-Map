@@ -12,7 +12,7 @@ class Places extends Component {
 
 	}
 
-	// Trigger marker's info window when clicking on a location
+	// Trigger marker's info window when clicking on a location by comparing marker's title to venue name
 	onLocationClick = (placeName) => {
         this.props.markers.map((marker) => {
             if(marker.title === placeName) {

@@ -135,7 +135,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Coffee Shops near Ante Starčević Square, Osijek, Croatia</h1>
         </header>
-        <main>
+        <div className="main-container">
           <div id="map" style={{ height: `600px`, width: '100%' }}></div>
           <div id="places-sidebar">
           	<Places
@@ -143,7 +143,7 @@ class App extends Component {
           	markers = {this.state.markers}
           	/>
           </div>
-        </main>
+        </div>
       </div>
     );
   }

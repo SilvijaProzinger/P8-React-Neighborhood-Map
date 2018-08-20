@@ -9,8 +9,8 @@ class Places extends Component {
 
 	updateSearch (event) {
 		this.setState({search: event.target.value});
-
 	}
+
 
 	// Trigger marker's info window when clicking on a location by comparing marker's title to venue name
 	onLocationClick = (placeName) => {
@@ -21,23 +21,35 @@ class Places extends Component {
         })
     }
 
+    // Filter markers after searching for venue
+    filterMarkers = () => {
+		if (this.state.search !== '') { // If the user enters something in search field
+        	this.props.places.forEach((place, i) => {
+        		if (place.name.toLowerCase().includes(this.state.search.toLowerCase())) { // If the searched input matches venue name
+          			this.props.markers[i].setVisible(true) // Show all appropriate markers
+        		} else { // If the input doesn't match don't show those markers
+          			this.props.markers[i].setVisible(false)
+        		}
+      			})
+    	} else { //if there is no search input show all markers
+      		this.props.places.forEach((place, i) => {
+        		if (this.props.markers.length) {
+         		    this.props.markers[i].setVisible(true)
+        		}
+      		})
+   		}
+    }
+
 	// filteredList variable filters the list of places after user types into search box
 	render () {
 		let filteredList = this.props.places.filter(
 			(place) => {
 				// toLowerCase helps appropriate letter be recognized regardless of upper case or lower case
-				return place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-				/*for (let i = 0; i < this.props.places.length; i++){
-					if(place.name.toLowerCase().includes(this.state.search.toLowerCase())) {
-	                markers[i].setVisible(true)
-				    } else {
-					markers[i].setVisible(false)
-			    }*/
-				}
-			
+				return place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;				
+			}
 		);
-
-		// variable list maps through list of places and their id to generate their names
+		                    
+		// Variable list maps through list of places and their id to generate their names
 		const list = filteredList.map((place, i) => {
 			return (
 				<li className="location-list" key = {i} onClick={() => this.onLocationClick(place.name)}>
@@ -46,13 +58,16 @@ class Places extends Component {
 			) 
 		})
 
+		this.filterMarkers()
+
 		return (
 		<div className="sidebar-content">
 		 <div className="filter-box">
 			<input type="text" 
 			placeholder="Search for places"
 			value={this.state.search} 
-			onChange={this.updateSearch.bind(this)}/>
+			onChange={this.updateSearch.bind(this)}
+			markers={this.props.markers}/>
 		  </div>
 		 <div className="places-list">
 		 	<h3>Places:</h3>

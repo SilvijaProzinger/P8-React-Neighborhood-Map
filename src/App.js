@@ -145,6 +145,9 @@ class App extends Component {
           	/>
           </div>
         </div>
+        <footer className="footer">
+        	<p>Made by Silvija Prozinger, powered by Foursquare API</p>
+        </footer>
       </div>
     );
   }

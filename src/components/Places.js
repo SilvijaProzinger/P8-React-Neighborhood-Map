@@ -65,7 +65,7 @@ class Places extends Component {
 		// Use react burger menu for sidebar
 		<Menu right> 
 		<div className="sidebar-content">
-		 <div className="filter-box" tabIndex={0}>
+		 <div className="filter-box" aria-label="Filter places" tabIndex="0">
 			<input type="text" 
 			placeholder="Search for places"
 			value={this.state.search} 
@@ -74,7 +74,7 @@ class Places extends Component {
 		  </div>
 		 <div className="places-list">
 		 	<h3>Places:</h3>
-		 	<ul>
+		 	<ul role="menu" aria-label="List of coffee shops">
 		 	{list}
 		 	</ul>
 		 </div>

@@ -11,7 +11,7 @@ class App extends Component {
 	state = {
 		places: [],
 		markers: [],
-		map: null,
+		map: null
 	}
 
 	// Async method source: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
@@ -131,13 +131,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="App" role="main">
+        <header className="App-header" aria-labelledby="header" tabindex="0">
           <h1 className="App-title">Coffee Shops near Ante Starčević Square </h1>
            <h2>Osijek, Croatia</h2>
         </header>
         <div className="main-container">
-          <div id="map" style={{ height: `600px`, width: '100%' }}></div>
+          <div id="map" style={{ height: `600px`, width: '100%' }} role="application" aria-labelledby="map" tabIndex="0"></div>
           <div id="places-sidebar">
           	<Places
           	places = {this.state.places} 
@@ -145,7 +145,7 @@ class App extends Component {
           	/>
           </div>
         </div>
-        <footer className="footer">
+        <footer className="footer" aria-labelledby="footer" tabindex="0">
         	<p>Made by Silvija Prozinger, powered by Foursquare API</p>
         </footer>
       </div>

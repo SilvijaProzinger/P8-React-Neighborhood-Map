@@ -133,7 +133,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Coffee Shops near Ante Starčević Square, Osijek, Croatia</h1>
+          <h1 className="App-title">Coffee Shops near Ante Starčević Square </h1>
+           <h2>Osijek, Croatia</h2>
         </header>
         <div className="main-container">
           <div id="map" style={{ height: `600px`, width: '100%' }}></div>

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: "Lato", sans-serif;
 }
 
 /*
@@ -10,16 +11,14 @@
 */
 
 .App-header {
-  background-color: #222;
+  background-color: #ab4e4e;
   width: 100%;
   height: 70px;
   padding: 20px;
   color: white;
+  font-size: 0.6em;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
 
 .App-intro {
   font-size: large;
@@ -52,7 +51,7 @@
   font-size: 15px;
   font-weight: 500;
   line-height: 1.7;
-  background-color: #222;
+  background-color: #ab4e4e;
   margin-bottom: 3px;
 }
 
@@ -61,6 +60,7 @@
 }
 
 .filter-box {
+  padding-top: 10px;
   margin: 20px auto;
   width: 100%;
   height: 40px;
@@ -75,6 +75,25 @@ h3 {
   text-align: center;
   padding: 10px;
 }
+
+.bm-burger-button {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 40px;
+  top: 40px;
+  margin-top: -1.3em;
+}
+
+.bm-burger-bars {
+  background: #373A47;
+}
+
+.bm-menu {
+  padding-left: 1em;
+  margin-top: -1.5em;
+}
+
 /*
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

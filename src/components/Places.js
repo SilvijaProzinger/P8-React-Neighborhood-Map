@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// Import react-burger-menu
+import { slide as Menu } from 'react-burger-menu';
 
 class Places extends Component {
 		state = {
@@ -21,7 +23,7 @@ class Places extends Component {
         })
     }
 
-    // Filter markers after searching for venue
+    // Filter markers after searching for venue, reference: Rene Korss on Stackoverflow: https://stackoverflow.com/questions/22323073/how-to-filter-google-maps-markers-in-one-array-with-select
     filterMarkers = () => {
 		if (this.state.search !== '') { // If the user enters something in search field
         	this.props.places.forEach((place, i) => {
@@ -61,8 +63,10 @@ class Places extends Component {
 		this.filterMarkers()
 
 		return (
+		// Use react burger menu for sidebar
+		<Menu right> 
 		<div className="sidebar-content">
-		 <div className="filter-box">
+		 <div className="filter-box" tabIndex={0}>
 			<input type="text" 
 			placeholder="Search for places"
 			value={this.state.search} 
@@ -76,6 +80,7 @@ class Places extends Component {
 		 	</ul>
 		 </div>
 		 </div>
+		 </Menu>
 
 		)
 	}

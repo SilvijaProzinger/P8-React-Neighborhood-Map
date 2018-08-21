@@ -70,7 +70,8 @@ class Places extends Component {
 			placeholder="Search for places"
 			value={this.state.search} 
 			onChange={this.updateSearch.bind(this)}
-			markers={this.props.markers}/>
+			markers={this.props.markers}
+			aria-label="start searching the place"/>
 		  </div>
 		 <div className="places-list">
 		 	<h3>Places:</h3>

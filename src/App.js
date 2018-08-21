@@ -132,7 +132,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" role="main">
-        <header className="App-header" aria-labelledby="header" tabindex="0">
+        <header className="App-header" aria-label="header" tabindex="0">
           <h1 className="App-title">Coffee Shops near Ante Starčević Square </h1>
            <h2>Osijek, Croatia</h2>
         </header>
@@ -145,7 +145,7 @@ class App extends Component {
           	/>
           </div>
         </div>
-        <footer className="footer" aria-labelledby="footer" tabindex="0">
+        <footer className="footer" aria-label="footer" tabindex="0">
         	<p>Made by Silvija Prozinger, powered by Foursquare API</p>
         </footer>
       </div>

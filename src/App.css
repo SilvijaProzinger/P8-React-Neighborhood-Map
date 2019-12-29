@@ -1,6 +1,6 @@
 html,body {
     width: 100%;
-    height: 100%;
+    //height: 100%;
     margin: 0px;
     padding: 0px;
     overflow-x: hidden; 
@@ -18,16 +18,24 @@ html,body {
 */
 
 .App-header {
-  background-color: #ab4e4e;
+  background-color: #b7917f;
   width: 100%;
   height: 70px;
   padding: 20px;
-  color: white;
+  color: black;
   font-size: 0.6em;
 }
 
+.App-title, .App-subtitle {
+  text-align: center;
+}
+
 .App-title {
-  text-align: left;
+  font-family: 'Inria Serif', serif;
+}
+
+.App-subtitle {
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-intro {
@@ -38,6 +46,9 @@ html,body {
   cursor: pointer;
 }
 
+.location-list:hover {
+  color: orange;
+}
 .main-container {
   display: flex;
   width: 100%;
@@ -58,16 +69,21 @@ html,body {
   position: fixed;
   right: 0;
   width: 235px;
-  color: white;
+  color: black;
   font-size: 15px;
   font-weight: 500;
   line-height: 1.7;
-  background-color: #ab4e4e;
+  background-color: #b7917f;
   margin-bottom: 3px;
 }
 
+.places-title {
+  font-family: 'Inria Serif', serif;
+  text-align: center;
+}
+
 .places-list {
-  text-align: left;
+  font-family: 'Roboto', sans-serif;
 }
 
 .filter-box {
@@ -87,13 +103,19 @@ h3 {
   padding: 10px;
 }
 
+input {
+  padding: 2%;
+  border: none;
+}
+
 .footer {
-  background-color: #ab4e4e;
+  background-color: #b7917f;
   font-size: 12pt;
   text-align: center;
-  color: white;
+  color: black;
   width: 100%;
   position: absolute;
+  font-family: 'Inria Serif', serif;
 }
 
 .bm-burger-button {
@@ -106,12 +128,27 @@ h3 {
 }
 
 .bm-burger-bars {
-  background: white;
+  background: black;
 }
 
 .bm-menu {
   padding-left: 1em;
   margin-top: -1.5em;
+}
+
+.bm-burger-bars:hover {
+  background: orange;
+}
+
+.info-text {
+  padding: 2%;
+}
+
+.header-image {
+  position: absolute;
+  top: 0.8%;
+  right: 10%;
+  width: 100px;
 }
 
 @media screen and (max-width: 324px) {
@@ -123,20 +160,18 @@ h3 {
 @media screen and (max-width: 564px)  {
   h1, h2 {
     font-size: 0.3;
-    text-align: left;
     padding-right: 75px;
   }
+
   .bm-burger-button {
     margin-top: -1.75em;
   }
+
   .bm-menu {
     width: 250px;
   }
-}
 
-/*
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  .App-title, .App-subtitle {
+    text-align: left;
+  }
 }
-*/

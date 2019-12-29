@@ -74,7 +74,7 @@ class Places extends Component {
 			aria-label="start searching the place"/>
 		  </div>
 		 <div className="places-list">
-		 	<h3>Places:</h3>
+		 	<h2 className="places-title">Places:</h2>
 		 	<ul role="menu" aria-label="List of coffee shops">
 		 	{list}
 		 	</ul>

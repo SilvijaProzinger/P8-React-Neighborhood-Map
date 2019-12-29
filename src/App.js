@@ -92,8 +92,8 @@ class App extends Component {
 	    })
 
 	    // Create variable which will populate info window with content fetched from Foursquare
-	    let infoContent = `<h3>${this.state.places[i].name}</h3>
-	                       <p>Address: ${places[i].location.formattedAddress[0]} ${places[i].location.formattedAddress[1]} ${places[i].location.formattedAddress[2]}</p>`
+	    let infoContent = `<h3 className="info-title">${this.state.places[i].name}</h3>
+	                       <p className="info-text">Address: ${places[i].location.formattedAddress[0]} ${places[i].location.formattedAddress[1]} ${places[i].location.formattedAddress[2]}</p>`
 
 	    // Display the info window after clicking on the marker
         marker.addListener('click', function() {
@@ -134,7 +134,8 @@ class App extends Component {
       <div className="App" role="main">
         <header className="App-header" aria-label="header" tabindex="0">
           <h1 className="App-title">Coffee Shops near Ante Starčević Square </h1>
-           <h2>Osijek, Croatia</h2>
+           <h2 className="App-subtitle">Osijek, Croatia</h2>
+           <img className="header-image" src="http://www.pngall.com/wp-content/uploads/3/Espresso-PNG-Free-Download.png" alt="coffee cup header"/>
         </header>
         <div className="main-container">
           <div id="map" style={{ height: `600px`, width: '100%' }} role="application" aria-labelledby="map" tabIndex="0"></div>
@@ -146,7 +147,7 @@ class App extends Component {
           </div>
         </div>
         <footer className="footer" aria-label="footer" tabindex="0">
-        	<p>Made by Silvija Prozinger, powered by Foursquare API</p>
+        	<h4>Made by Silvija Prozinger, powered by Foursquare API</h4>
         </footer>
       </div>
     );
